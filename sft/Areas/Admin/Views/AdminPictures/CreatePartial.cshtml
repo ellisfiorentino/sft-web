@@ -1,0 +1,39 @@
+﻿@model Picture
+@{
+  Layout = null;
+}
+<h4>Upload picture</h4>
+@using (Html.BeginForm("CreatePartial", "AdminPictures", FormMethod.Post, new {id = "partialPictureForm"}))
+{
+ @Html.AntiForgeryToken()
+ <table>
+    <tr>
+      <td>Name</td>
+      <td>@Html.EditorFor(model => model.Name)</td>
+    </tr>
+    <tr>
+      <td>File</td>
+      <td><input type="file" name="file" id="file"/></td>
+    </tr>
+    <tr>
+      <td><input type="submit" value="Save"/></td>
+    </tr>
+  </table> 
+}
+<script type="text/javascript">
+  $(function () {
+    $("#partialPictureForm").submit(function () {
+      if ($(this).valid()) {
+        $.ajax({
+          url: this.action,
+          type: this.method,
+          data: $(this).serialize(),
+          success: function (result) {
+            $("#result").html(result);
+          }
+        });
+      }
+      return false;
+    });
+  });
+</script>

@@ -1,0 +1,37 @@
+﻿@model RightSideBarLayoutViewModel
+@{
+}
+@if (IsSectionDefined("meta"))
+{
+  @Html.Partial("_HtmlHeader", RenderSection("meta", false))
+}
+else
+{
+    @Html.Partial("_HtmlHeader")
+}
+<body class="right-sidebar">
+  @Html.Partial("_Header")
+
+  <!-- Main -->
+  <div id="main-wrapper">
+    <div class="container">
+      <div class="row 200%">
+        <div class="8u">
+          <div id="content">
+            @RenderBody()
+          </div>
+        </div>
+        <div class="4u">
+          <div id="sidebar">
+            @Html.Partial("_RightSideBar", Model.RightSideBar)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  @Html.Partial("_Footer")
+  @RenderSection("Scripts", required: false)
+</body>
+</html>

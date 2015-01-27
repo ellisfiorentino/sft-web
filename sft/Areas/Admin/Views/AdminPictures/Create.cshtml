@@ -1,0 +1,25 @@
+﻿@model Picture
+@{
+  ViewBag.Title = "Upload new picture";
+  ViewBag.PageTitle = "pictute";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "AdminPictures", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+  @Html.AntiForgeryToken()
+  <table>
+    <tr>
+      <td>Name</td>
+      <td>@Html.EditorFor(model => model.Name)</td>
+    </tr>
+    <tr>
+      <td>File</td>
+      <td><input type="file" name="file" id="file"/></td>
+    </tr>
+    <tr>
+      <td><input type="submit" value="Save"/></td>
+    </tr>
+  </table>
+}

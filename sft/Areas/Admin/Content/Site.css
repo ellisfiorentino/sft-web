@@ -1,0 +1,29 @@
+﻿.PartialWrapper {
+    position: absolute;
+    z-index: 100;
+    background-color: black;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.partialContent {
+    position: absolute;
+    width: 70%;
+    left: 15%;
+    background: white;
+    opacity: initial;
+    z-index: 105;
+    top: 200px;
+    padding: 25px;
+    -ms-border-radius: 25px;
+    border-radius: 25px;
+    display: none;
+}
+
+form table tbody tr td {
+    margin-bottom: 10px;
+}

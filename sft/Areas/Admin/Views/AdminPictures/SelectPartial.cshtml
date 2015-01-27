@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Picture>
+@{
+    Layout = null;
+}
+<table id="pictureTable">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var picture in Model)
+        {
+            <tr>
+                <td><img src="@picture.FileName" alt="@picture.Name" style="max-width: 75px;" /></td>
+                <td>@picture.Name</td>
+                <td><a href="#" onclick="selectImage('@picture.Id', '@picture.FileName');return false;">select</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Select</th>
+        </tr>
+    </tfoot>
+</table>
+
+<p>
+    <a href="#" onclick="closeFrame();return false;" class="button">Cancel</a>
+</p>
+
+<script type="text/javascript">
+    function selectImage(id, fileName) {
+        $("#MainPictureLocation").val(fileName);
+        $("#HasPicture").val(true);
+
+        $("#image").html("<img src=\"" + fileName + "\" style=\"max-width: 100px;\" />");
+        $("#image").css("display", "initial");
+        $(".PartialWrapper").css("display", "none");
+        $(".partialContent").css("display", "none");
+    }
+
+    function closeFrame() {
+        $(".PartialWrapper").css("display", "none");
+        $(".partialContent").css("display", "none");
+    }
+</script>

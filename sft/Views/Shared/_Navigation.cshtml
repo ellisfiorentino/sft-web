@@ -1,0 +1,27 @@
+﻿ <!-- Nav -->
+<nav id="nav">
+    <ul>
+        <li class="@(ViewBag.PageTitle == "home" ? "current": "")">@Html.ActionLink("Home", "Index", "Home")</li>
+        <li class="@(ViewBag.PageTitle == "about" ? "current" : "")">@Html.ActionLink("About us", "About", "Home")</li>
+        <li class="@(ViewBag.PageTitle == "news" ? "current" : "")">@Html.ActionLink("News", "Index", "News")</li>
+        <li class="@(ViewBag.PageTitle == "rental" ? "current" : "")">@Html.ActionLink("Rentals", "Index", "Rental")</li>
+        @Html.Partial("_LoginPartial")
+        @*          <li>
+              <a href="">Dropdown</a>
+              <ul>
+                <li><a href="#">Lorem ipsum dolor</a></li>
+                <li><a href="#">Magna phasellus</a></li>
+                <li>
+                  <a href="">Phasellus consequat</a>
+                  <ul>
+                    <li><a href="#">Lorem ipsum dolor</a></li>
+                    <li><a href="#">Phasellus consequat</a></li>
+                    <li><a href="#">Magna phasellus</a></li>
+                    <li><a href="#">Etiam dolore nisl</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Veroeros feugiat</a></li>
+              </ul>
+            </li>*@
+    </ul>
+</nav>

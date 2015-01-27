@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity
+@model sft.Models.IndexViewModel
+@{
+  ViewBag.Title = "Manage";
+  ViewBag.PageTitle = "manage";
+  Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+  <h4>Change your account settings</h4>
+  <hr />
+  <table class="dl-horizontal">
+    <tr>
+      <td>Password:</td>
+      <td>
+        @(Model.HasPassword ? Html.ActionLink("Change your password", "ChangePassword") : Html.ActionLink("Create", "SetPassword"))
+      </td>
+    </tr>
+    <tr>
+      <td>First name</td>
+      <td>@Model.FirstName</td>
+    </tr>
+    <tr>
+      <td>Middle name</td>
+      <td>@Model.MiddleName</td>
+    </tr>
+    <tr>
+      <td>Last name</td>
+      <td>@Model.LastName</td>
+    </tr>
+    <tr>
+      <td>SL name</td>
+      <td>@Model.AccountName</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        @Html.ActionLink("Change settings", "UserDetails", "Manage", new { id = User.Identity.GetUserId()}, null)
+      </td>
+    </tr>
+  </table>
+</div>

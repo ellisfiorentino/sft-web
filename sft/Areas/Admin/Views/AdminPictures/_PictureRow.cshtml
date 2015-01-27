@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Picture>
+
+<div class="row" style="padding: 5px; margin-bottom: 25px;">
+
+  @foreach (var picture in Model)
+  {
+    <div class="4u box" style="box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05) !important;">
+      <img src="@picture.FileName" style="width: 100%"/>
+      @Html.ActionLink("Edit", "Edit", "AdminPictures",new {id = picture.Id}, null) | @Html.DisplayFor(item => picture.Name) | @Html.ActionLink("Delete", "Delete", "AdminPictures",new {id = picture.Id}, new {@onclick = "return confirm('Are you sure you want to delete this picture');"})
+    </div>
+  }
+</div>

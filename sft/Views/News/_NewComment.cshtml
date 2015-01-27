@@ -1,0 +1,17 @@
+﻿@model String
+@{
+  Layout = null;
+  var comment = new Comment();
+}
+
+<table>
+  <tr>
+    <td>@Html.TextAreaFor(item => comment.Text, new {@placeholder = Model})</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><input type="submit" value="comment"/></td>
+  </tr>
+</table>

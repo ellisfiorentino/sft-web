@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Rental>
+
+<div class="row" style="padding: 5px; margin-bottom: 25px;">
+
+  @foreach (var rental in Model)
+  {
+    <div class="4u box rentalBox" style="box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05) !important; height: 425px; position: relative">
+      <h3>@rental.Name</h3>
+        <img style="max-width: 100%;" src="@(!string.IsNullOrEmpty(rental.MainPictureLocation) ? rental.MainPictureLocation: " http://img1.wikia.nocookie.net/__cb20141028171337/pandorahearts/images/a/ad/Not_available.jpg")" alt="@rental.Name"/>
+      <ul>
+        <li>Prim: @rental.AllowedPrim</li>
+        <li>Price: @rental.WeekPrice $L/week</li>
+      </ul>
+       
+      @Html.ActionLink("View", "Details", "Rental", new {urlName = @rental.UrlName}, new {@class = "button", @style = "position: absolute; bottom: 10px;"})
+    </div>
+  }
+</div>

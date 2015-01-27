@@ -1,0 +1,36 @@
+﻿@model IEnumerable<NewsArticle>
+@{
+  ViewBag.Title = "Latest news";
+  ViewBag.PageTitle = "news";
+  Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+  ViewBag.Border = true;
+  var feautured = Model.Where(article => article.IsHighLighted).Take(3).Select(article => new FeatureViewModel
+      {
+        Header = article.Name,
+        LinkLocation = "/news/" + article.UrlName,
+        ImgLocation = article.MainPictureLocation,
+        SmallText = article.Text.Substring(0, (article.Text.Length > 117 ? 117 : article.Text.Length)) + "...",
+        SubHeader = article.Author,
+        Comments = article.Comments.Count(c => c.IsApproved)
+      }).ToList();
+}
+@section meta {
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:url" content="@Request.Url.AbsoluteUri"/>
+  <meta property="og:title" content="SFT - @ViewBag.Title"/>
+  <meta property="og:description" content="Read about the latest news in Serenity falls, stay updated on upcoming events and share your thought on the recent developments in town"/>
+  <meta property="og:image" content=""/>
+  <meta name="description" content="Read about the latest news in Serenity falls, stay updated on upcoming events and share your thought on the recent developments in town"/>
+}
+  <h2>Latest news</h2>
+  @Html.Partial("_HomeFeatures", feautured)
+
+  <h3>Archive</h3>
+<ul class="style2">
+  @foreach (var article in Model)
+  {
+    <li>
+      @Html.ActionLink(article.Name, "Details", new { urlName = article.UrlName })
+    </li>
+  }
+</ul>

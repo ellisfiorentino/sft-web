@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+  ViewBag.Title = "List of users";
+  ViewBag.PageTitle = "users";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table id="usersTable">
+  <thead>
+    <tr>
+      <th>SL name</th>
+      <th>First name</th>
+      <th>Middle name</th>
+      <th>Last name</th>
+      <th>Is locked out</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var user in Model)
+    {
+      <tr>
+        <td>@user.AccountName</td>
+        <td>@user.FirstName</td>
+        <td>@user.MiddleName</td>
+        <td>@user.LastName</td>
+        <td>@(user.LockoutEndDateUtc > DateTime.Now ? "yes" : "no")</td>
+        <td>@Html.ActionLink("Edit", "Edit", "AdminUsers", new { id = user.Id }, null)</td>
+      </tr>
+    }
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>SL name</th>
+      <th>First name</th>
+      <th>Middle name</th>
+      <th>Last name</th>
+      <th>Is locked out</th>
+      <th></th>
+    </tr>
+  </tfoot>
+</table>
+
+
+@section Scripts
+{
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#usersTable").dataTable();
+    });
+  </script>
+}

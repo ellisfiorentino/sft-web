@@ -1,0 +1,24 @@
+﻿<!-- Sidebar -->
+@model RightSideBarViewModel
+<section>
+  <h3>Our rentals</h3>
+  <p>
+    Come and see our rental offers, see how many prim you can get in the beautiful town named serenity falls
+  </p>
+  <footer>
+     @Html.ActionLink("See our rentals", "Index", "Rental", null, new { @class = "button icon fa-arrow-circle-right" })
+  </footer>
+</section>
+
+<section>
+  <h3>Latest news</h3>
+  <ul class="style2">
+    @foreach (var article in Model.Articles)
+    {
+      <li>
+        @Html.ActionLink(article.Name, "Details", "News", new { urlName = article.UrlName}, null)
+      </li>
+    }
+  </ul>
+</section>
+

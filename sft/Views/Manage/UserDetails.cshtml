@@ -1,0 +1,41 @@
+﻿@model sft.Models.ManageDetailsViewModel
+
+@{
+  ViewBag.Title = "Manage details";
+  ViewBag.PageTitle = "manage";
+  Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+  @Html.AntiForgeryToken()
+    
+  <hr />
+  @Html.ValidationSummary(true)
+
+  @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+
+  @Html.EditorFor(model => model.FirstName)
+  @Html.ValidationMessageFor(model => model.FirstName)
+
+  @Html.LabelFor(model => model.MiddleName, new { @class = "control-label col-md-2" })
+         
+  @Html.EditorFor(model => model.MiddleName)
+  @Html.ValidationMessageFor(model => model.MiddleName)
+
+  @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+
+  @Html.EditorFor(model => model.LastName)
+  @Html.ValidationMessageFor(model => model.LastName)
+
+  @Html.LabelFor(model => model.AccountName, new { @class = "control-label col-md-2" })
+
+  @Html.EditorFor(model => model.AccountName)
+  @Html.ValidationMessageFor(model => model.AccountName)
+
+  <br />
+  <input type="submit" value="Save" class="btn" />
+}
+

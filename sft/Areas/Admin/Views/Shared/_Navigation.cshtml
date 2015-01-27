@@ -1,0 +1,24 @@
+﻿<!-- Nav -->
+<nav id="nav">
+  <ul>
+    <li class="@(ViewBag.PageTitle == "home" ? "current" : "")">@Html.ActionLink("Admin", "Index", "AdminHome")</li>
+
+    <li class="@(ViewBag.PageTitle == "news" ? "current" : "")">
+      <a href="">News</a>
+      <ul>
+        <li>@Html.ActionLink("List", "Index", "AdminNews")</li>
+        <li>@Html.ActionLink("New article", "Create", "AdminNews")</li>
+      </ul>
+    </li>
+    <li class="@(ViewBag.PageTitle == "rentals" ? "current" : "")">
+      <a href="">Rentals</a>
+      <ul>
+        <li>@Html.ActionLink("List", "Index", "AdminRentals")</li>
+        <li>@Html.ActionLink("New rental", "Create", "AdminRentals")</li>
+      </ul>
+    </li>
+    <li class="@(ViewBag.PageTitle == "picture" ? "current" : "")">@Html.ActionLink("Pictures", "Index", "AdminPictures")</li>
+    <li class="@(ViewBag.PageTitle == "users" ? "current" : "")">@Html.ActionLink("User admin", "Index", "AdminUsers")</li>
+    @Html.Partial("_LoginPartial")
+  </ul>
+</nav>

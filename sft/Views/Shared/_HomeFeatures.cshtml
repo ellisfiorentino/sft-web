@@ -1,0 +1,32 @@
+﻿@model IEnumerable<sft.Models.ViewModels.FeatureViewModel>
+@{
+  int count = 0;
+}
+<!-- Features -->
+<div id="features-wrapper">
+  <div class="container">
+    <div class="row">
+      @foreach (var item in Model)
+      {
+        <div class="4u@(count > 0 ? " not-mobile" : "")">
+          <!-- Box -->
+          <section class="box feature" style="@(ViewBag.Border ? "border: 1px solid lightgray;" : "")">
+            <a href="@item.LinkLocation" class="image featured">
+              <img src="@item.ImgLocation" alt=""/></a>
+            <div class="inner">
+              <header>
+                <h2>@item.Header</h2>
+                <p>@item.SubHeader</p>
+              </header>
+              <p>@item.SmallText</p>
+              <a href="@item.LinkLocation">read more</a>
+              <span style="float: right;">@item.Comments comment@(item.Comments > 1 || item.Comments == 0 ? "s" : "")</span>
+            </div>
+          </section>
+        </div>
+        {count++;}
+      }
+    </div>
+  </div>
+</div>
+

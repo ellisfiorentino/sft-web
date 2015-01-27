@@ -1,0 +1,108 @@
+﻿@model Rental
+@{
+    ViewBag.Title = "Create new rental";
+    ViewBag.PageTitle = "rentals";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(item => item.MainPictureLocation)
+    <table>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.Name)</td>
+            <td>@Html.EditorFor(item => item.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.Description)</td>
+            <td>@Html.EditorFor(item => item.Description)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.Available)</td>
+            <td>@Html.EditorFor(item => item.Available)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.AllowedPrim)</td>
+            <td>@Html.EditorFor(item => item.AllowedPrim)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.WeekPrice)</td>
+            <td>@Html.EditorFor(item => item.WeekPrice)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.Xcord)</td>
+            <td>@Html.EditorFor(item => item.Xcord)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.Ycord)</td>
+            <td>@Html.EditorFor(item => item.Ycord)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.Zcord)</td>
+            <td>@Html.EditorFor(item => item.Zcord)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.StreetName)</td>
+            <td>@Html.EditorFor(item => item.StreetName)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.HouseNumber)</td>
+            <td>@Html.EditorFor(item => item.HouseNumber)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(item => item.Sim)</td>
+            <td>@Html.DropDownListFor(item => item.SimId, Rental.GetSims())</td>
+        </tr>
+        <tr>
+            <td>Add picture</td>
+            <td id="pictureButtonCell">
+                @*      <a href="#" onclick="openUpload();return false; " class="button">upload</a> |*@
+                <a href="#" onclick=" openExisting();return false; " class="button">choose existing</a>
+                <div id="image" style="display: none;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Save" />
+            </td>
+        </tr>
+    </table>
+
+    <div class="PartialWrapper">
+    </div>
+    <div class="partialContent">
+    </div>
+
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function showPartial() {
+            $(".PartialWrapper").css("display", "initial");
+            $(".partialContent").css("display", "initial");
+        }
+
+        function openUpload() {
+            $(".partialContent").load("@(Url.Action("CreatePartial", "AdminPictures", null, Request.Url.Scheme))");
+            showPartial();
+        }
+
+        function openExisting() {
+            $.ajax({
+                url: '@(Url.Action("SelectPartial", "AdminPictures", null, Request.Url.Scheme))',
+                context: document.body
+            }).done(function (data) {
+                $(".partialContent").html(data);
+                $("#pictureTable").DataTable();
+                showPartial();
+            });
+
+        }
+    </script>
+}

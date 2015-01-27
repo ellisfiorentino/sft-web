@@ -1,0 +1,85 @@
+﻿@model NewsArticle
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.PageTitle = "news";
+    Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+}
+@section meta {
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:url" content="@Request.Url.AbsoluteUri"/>
+  <meta property="og:title" content="SFT - @ViewBag.Title"/>
+  <meta property="og:description" content="@Model.Name by @Model.Author"/>
+  <meta property="og:image" content=""/>
+  <meta name="description" content="@Model.Name by @Model.Author"/>
+}
+@if (Model.HasPicture)
+{
+    <div id="image" class="box" style="float: right; max-width: 35%; box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.05) !important;">
+        <img src="@Model.MainPictureLocation" style="width: 100%" />
+    </div>
+}
+<h2>@ViewBag.Title</h2>
+<ul>
+    <li>By: @Model.Author</li>
+    <li>On: @Model.Created</li>
+    @if (Model.Modified > Model.Created)
+    {
+        <li>Last updated: @Model.Modified by: @Model.Editor</li>
+    }
+</ul>
+<div style="max-width: 60%;">
+    @if (!Model.Text.StartsWith("<p>"))
+    {
+        @Html.Raw("<p>");
+    }
+    @Html.Raw(Model.Text)
+    @if (!Model.Text.EndsWith("</p>"))
+    {
+        @Html.Raw("</p>");
+    }
+</div>
+@if (Model.IsCommentingEnabled)
+{
+    <section id="comments" class="box" style="box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.05) !important;">
+        <h3>Comments (@Model.Comments.Count(c => c.IsApproved))</h3>
+        @if (Model.Comments.Count == 0)
+        {
+            if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("Comment", "News", new { articleId = Model.Id }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("_NewComment", "Start the discussion...")
+                }
+
+            }
+            else
+            {
+                <p>You need to @Html.ActionLink("sign in", "Login", "Account") before you can comment</p>
+            }
+        }
+        else
+        {
+            foreach (var com in Model.Comments.Where(c => c.IsApproved))
+            {
+                <div class="box" style="box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05) !important; margin-bottom: 10px;">
+                    @Html.Partial("_Comment", com)
+                </div>
+            }
+            <hr />
+            if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("Comment", "News", new { articleId = Model.Id }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("_NewComment", "Share your thought...")
+                }
+
+            }
+            else
+            {
+                <p>You need to @Html.ActionLink("sign in", "Login", "Account") before you can comment</p>
+            }
+        }
+    </section>
+}

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Rental>
+@{
+  ViewBag.Title = "Index";
+  ViewBag.PageTitle = "rentals";
+}
+
+<h2>List of rentals</h2>
+<p>
+    @Html.ActionLink("new rental", "Create", "AdminRentals", null, new {@class = "button"}) |
+    @Html.ActionLink("Choose highlited", "ChooseHiglighted", "AdminRentals", null, new {@class = "button"})
+</p>
+<table id="rentalTable">
+  <thead>
+  <tr>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+      <tr>
+        <td><img src="@(!string.IsNullOrEmpty(item.MainPictureLocation) ? item.MainPictureLocation : "http://img1.wikia.nocookie.net/__cb20141028171337/pandorahearts/images/a/ad/Not_available.jpg")" alt="@item.Name" style="max-width: 100px;"/></td>
+        <td>@item.Name</td>
+        <td>
+          @Html.ActionLink("edit", "Edit", "AdminRentals", new { id = item.Id }, null) |
+        @Html.ActionLink("delete", "Delete", "AdminRentals", new { id = item.Id }, new {@onclick = "return confirm('are you sure you want to remove this rental');"})
+        </td>
+      </tr>
+    }
+  </tbody>
+  <tfoot>
+  <tr>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+  </tfoot>
+</table>
+
+@section Scripts
+{
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#rentalTable").dataTable();
+    });
+  </script>
+}

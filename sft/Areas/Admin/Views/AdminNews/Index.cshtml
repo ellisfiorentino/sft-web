@@ -1,0 +1,52 @@
+﻿@model IEnumerable<NewsArticle>
+@{
+    ViewBag.Title = "Index";
+    ViewBag.PageTitle = "news";
+}
+
+<h2>List of news articles</h2>
+<p>
+    @Html.ActionLink("new article", "Create", "AdminNews", null, new { @class = "button" }) |
+    @Html.ActionLink("Choose highlited", "ChooseHiglighted", "AdminNews", null, new { @class = "button" })
+</p>
+<table id="newsTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Last updated</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Author</td>
+                <td>@item.Modified</td>
+                <td>
+                    @Html.ActionLink("edit", "Edit", "AdminNews", new { id = item.Id }, null) |
+                    @Html.ActionLink("delete", "Delete", "AdminNews", new { id = item.Id }, new { @onclick = "return confirm('are you sure you want to remove this article');" })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Last updated</th>
+            <th>Actions</th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#newsTable").dataTable();
+        });
+    </script>
+}

@@ -1,0 +1,45 @@
+﻿@model Object
+<!DOCTYPE HTML>
+<html lang="en" xml:lang="en">
+<head>
+  <title>SFT - @ViewBag.Title</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="author" content="Ellis Victoria Fiorentino">
+  <meta name="HandheldFriendly" content="True" />
+  @if (Model != null)
+  {
+    @(Model as HelperResult)
+  }
+  else
+  {
+    <meta name="robots" content="index, follow" />
+    <meta property="og:url" content="@Request.Url.AbsoluteUri" />
+    <meta property="og:title" content="SFT - @ViewBag.Title" />
+    <meta property="og:description" content="Serenity falls township, Where the heart calls home." />
+    <meta property="og:image" content="" />
+    <meta name="description" content="Serenity falls township, Where the heart calls home." />  
+  }
+  <!--[if lte IE 8]><script src="~/Content/ie/html5shiv.js"></script><![endif]-->
+  @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/skel")
+  <noscript>
+    <link rel="stylesheet" href="~/Content/skel.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link rel="stylesheet" href="~/Content/style-desktop.css" />
+  </noscript>
+  <!--[if lte IE 8]><link rel="stylesheet" href="~/Content/ie/v8.css"/><![endif]-->
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-58878250-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+</head>

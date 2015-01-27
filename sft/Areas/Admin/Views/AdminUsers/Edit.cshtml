@@ -1,0 +1,67 @@
+﻿@model ApplicationUser
+@{
+  ViewBag.PageTitle = "users";
+  ViewBag.Title = Model.FirstName + " ";
+  if (!string.IsNullOrEmpty(Model.MiddleName))
+  {
+    ViewBag.Title = ViewBag.Title + Model.MiddleName + " ";
+  }
+  ViewBag.Title = ViewBag.Title + Model.LastName + string.Format("({0})", Model.AccountName);
+  bool lockedout = Model.LockoutEndDateUtc > DateTime.Now;
+}
+
+<style type="text/css">
+  .checkboxList label {
+    margin-left: 10px;
+    display: inline-block;
+  }
+</style>
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<h6>User info</h6>
+<table>
+    <tr>
+        <td>Name</td>
+        <td>@(Model.FirstName + (!string.IsNullOrEmpty(Model.MiddleName) ? " " + Model.MiddleName : "") + " " + Model.LastName)</td>
+    </tr>
+    <tr>
+        <td>SL name</td>
+        <td>@Model.AccountName</td>
+    </tr>
+    <tr>
+        <td>is lockedout</td>
+        <td>@( lockedout ? "yes" : "no")</td>
+    </tr>
+    <tr>
+        <td>Amount of login sessions</td>
+        <td>@Model.Logins.Count</td>
+    </tr>
+</table>
+<hr/>
+@Html.ActionLink("Remove all comments fro user", "RemoveCommentsFromUser", new {id = Model.Id}, new {@class= "button"})
+@{
+  var postBackModel = new UserRolesViewModel();
+}
+@using (Html.BeginForm("SetRoles", "AdminUsers", new {id = Model.Id}, FormMethod.Post))
+{
+  @Html.AntiForgeryToken() 
+  @Html.CheckBoxListFor(model => postBackModel.Roles,
+    model => postBackModel.GetRoles(),
+    role => role.Id,
+    role => role.Name,
+    model => postBackModel.SelectedRoles(Model.Roles.Select(role => role.RoleId)),
+    new HtmlListInfo(MvcCheckBoxList.Model.HtmlTag.vertical_columns, 1, new { @class = "checkboxList" }))
+  <input type="submit" value="Update roles" style="width: 220px; height: 65px;"  />
+  if (!lockedout)
+  {
+  @Html.ActionLink("Lock user out", "LockOut", "AdminUsers", new { id = Model.Id }, new { @class = "button", @style = "width: 220px; height: 65px;" })<br />
+  <text>
+  Locking a user out means preventing the user from loggin in into the website
+    </text>
+  }
+  else
+  {
+  @Html.ActionLink("Undo lockout", "DisableLockOut", "AdminUsers", new { id = Model.Id }, new { @class = "button", @style = "width: 220px; height: 65px;"  })
+  }
+}

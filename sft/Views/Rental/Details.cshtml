@@ -1,0 +1,48 @@
+﻿@model Rental
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+    ViewBag.PageTitle = "rental";
+}
+@section meta {
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:url" content="@Request.Url.AbsoluteUri"/>
+  <meta property="og:title" content="SFT - @ViewBag.Title"/>
+  <meta property="og:description" content="@Model.Description"/>
+  <meta property="og:image" content=""/>
+  <meta name="description" content="@Model.Description"/>
+}
+
+<div id="image" class="box" style="float: right; max-width: 35%; box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.05) !important;">
+    <img src="@(!string.IsNullOrEmpty(Model.MainPictureLocation) ? Model.MainPictureLocation : " http://img1.wikia.nocookie.net/__cb20141028171337/pandorahearts/images/a/ad/Not_available.jpg")" style="width: 100%" />
+</div>
+<h2>@ViewBag.Title</h2>
+<div style="max-width: 60%;">
+    @if (Model.Description != null && !Model.Description.StartsWith("<p>"))
+    {
+        @Html.Raw("<p>");
+    }
+    @Model.Description
+    @if (Model.Description != null && !Model.Description.EndsWith("</p>"))
+    {
+        @Html.Raw("</p>");
+    }
+</div>
+<table>
+    <tr>
+        <td>Prim:</td>
+        <td>@Model.AllowedPrim</td>
+    </tr>
+    <tr>
+        <td>Price:</td>
+        <td>@Model.WeekPrice L$/week</td>
+    </tr>
+    <tr>
+        <td>Price:</td>
+        <td>@Model.WeekPrice L$/week</td>
+    </tr>
+    <tr>
+        <td>View inworld</td>
+        <td><a href="http://maps.secondlife.com/secondlife/@(Html.Encode(Model.Sim.SimName))/@Model.Xcord/@Model.Ycord/@Model.Zcord" target="_blank" onclick="_gaq.push(['_trackEvent', 'Affiliate', 'Rental', 'RentalMapsClick']);">@Model.Name</a></td>
+    </tr>
+</table>

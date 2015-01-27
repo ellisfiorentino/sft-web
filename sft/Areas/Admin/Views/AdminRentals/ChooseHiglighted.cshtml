@@ -1,0 +1,20 @@
+﻿@model HIglightRentalViewModel
+@{
+    ViewBag.Title = "Choose highlited rentals";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.DropDownListFor(item => item.First, Model.GetRentalSelecter())
+    <br/>
+    @Html.DropDownListFor(item => item.Second, Model.GetRentalSelecter())
+    <br />
+    @Html.DropDownListFor(item => item.Thirt, Model.GetRentalSelecter())
+    <br />
+    @Html.DropDownListFor(item => item.Fourth, Model.GetRentalSelecter())
+    <br/>
+    <input type="submit" value="Save"/>
+}

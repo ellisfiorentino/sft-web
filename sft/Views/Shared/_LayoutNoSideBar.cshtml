@@ -1,0 +1,26 @@
+﻿@if (IsSectionDefined("meta"))
+{
+  @Html.Partial("_HtmlHeader", RenderSection("meta", false))
+}
+else
+{
+    @Html.Partial("_HtmlHeader")
+}
+<body class="no-sidebar">
+  @Html.Partial("_Header")
+
+  <!-- Main -->
+  <div id="main-wrapper">
+    <div class="container">
+      <div id="content">
+
+        @RenderBody()
+      </div>
+    </div>
+  </div>
+
+
+  @Html.Partial("_Footer")
+  @RenderSection("Scripts", required: false)
+</body>
+</html>

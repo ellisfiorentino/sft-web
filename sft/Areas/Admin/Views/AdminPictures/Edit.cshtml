@@ -1,0 +1,30 @@
+﻿@model Picture
+@{
+  ViewBag.Title = Model.Name;
+  ViewBag.PageTitle = "picture";
+}
+
+<div id="image" class="box" style="float: right; max-width: 35%; box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.05) !important;">
+  <img src="@Model.FileName" style="width: 100%" />
+</div>
+
+<h2>@ViewBag.Title</h2>
+<div style="max-width: 60%;">
+  @using (Html.BeginForm())
+  {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(picture => picture.Id)
+    @Html.HiddenFor(picture => picture.FileName)
+    <table>
+      <tr>
+        <td>Name</td>
+        <td>@Html.EditorFor(picture => picture.Name)</td>
+      </tr>
+      <tr>
+        <td><input type="submit" value="Save"/></td>
+      </tr>
+    </table>
+  }
+</div>
+
+

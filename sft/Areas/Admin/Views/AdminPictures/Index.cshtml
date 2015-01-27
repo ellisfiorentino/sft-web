@@ -1,0 +1,27 @@
+﻿@model PicturesIndexViewModel
+@{
+  ViewBag.Title = "Pictures";
+  ViewBag.PageTitle = "picture";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>
+  @Html.ActionLink("Upload", "Create", "AdminPictures", null, new { @class = "button" })
+  <br />
+</p>
+<div style="padding-top: 10px;">
+  @if (Model.Pictures.Count > 0)
+  {
+    @Html.Partial("_PictureRow", Model.Pictures.Take(3))
+  }
+  @if (Model.Pictures.Count > 3)
+  {
+    @Html.Partial("_PictureRow", Model.Pictures.Skip(3).Take(3))
+  }
+  @if (Model.Pictures.Count > 6)
+  {
+    @Html.Partial("_PictureRow", Model.Pictures.Skip(6).Take(3))
+  }
+
+  @Html.Partial("_Pagination")
+</div>

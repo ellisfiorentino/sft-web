@@ -1,0 +1,24 @@
+﻿@model RentalIndexViewModel
+@{
+  ViewBag.Title = "Our rentals";
+  ViewBag.PageTitle = "rental";
+  Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="box" style="box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05) !important;">
+  @if (Model.Rentals.Count > 0)
+  {
+    @Html.Partial("_RentalRow", Model.Rentals.Take(3))
+  }
+  @if (Model.Rentals.Count > 3)
+  {
+    @Html.Partial("_RentalRow", Model.Rentals.Skip(3).Take(3))
+  }
+  @if (Model.Rentals.Count > 6)
+  {
+    @Html.Partial("_RentalRow", Model.Rentals.Skip(6).Take(3))
+  }
+  @Html.Partial("_Pagination", Model)
+</div>

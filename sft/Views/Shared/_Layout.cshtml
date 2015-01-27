@@ -1,0 +1,52 @@
+﻿@model sft.Models.ViewModels.HomeViewModel
+@{
+  ViewBag.Border = false;
+}
+@if (IsSectionDefined("meta"))
+{
+  @Html.Partial("_HtmlHeader", RenderSection("meta", false))
+}
+else
+{
+    @Html.Partial("_HtmlHeader")
+}
+<body class="homepage">
+  @Html.Partial("_Header")
+  <!-- Banner -->
+  <div id="banner-wrapper">
+    <div id="banner" class="box container">
+      <div class="row">
+        <div class="7u">
+          <h2>Serenity falls township</h2>
+          <p>Where the heart calls home</p>
+        </div>
+        <div class="5u">
+          <ul>
+            <li>@Html.ActionLink("See our rentals", "Index", "Rental", null, new { @class = "button big icon fa-arrow-circle-right" })</li>
+            <li>@Html.ActionLink("Who are we", "About", "Home", null, new { @class = "button alt big icon fa-question-circle" })</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  @Html.Partial("_HomeFeatures", Model.Featured)
+  <!-- Main -->
+  <div id="main-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="4u">
+          @Html.Partial("_HomeSideBar", Model.FeatureRentals)
+        </div>
+        <div class="8u important(collapse)">
+          <!-- Content -->
+          <div id="content">
+            @RenderBody()
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  @Html.Partial("_Footer")
+  @RenderSection("Scripts", required: false)
+</body>
+</html>

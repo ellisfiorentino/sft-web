@@ -1,0 +1,47 @@
+﻿@model sft.Models.LoginViewModel
+@{
+  ViewBag.Title = "Log in";
+  Layout = "~/Views/Shared/_LayoutNoSideBar.cshtml";
+}
+@section meta {
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta property="og:url" content="@Request.Url.AbsoluteUri"/>
+  <meta property="og:title" content="SFT - @ViewBag.Title"/>
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+  @Html.AntiForgeryToken()
+  <hr />
+  @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+  @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+
+  @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+  @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+  @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+
+  @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+  @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+@*  @Html.CheckBoxFor(m => m.RememberMe)
+  @Html.LabelFor(m => m.RememberMe) *@
+  <br />
+  <input type="submit" value="Log in" class="btn btn-default" />
+
+  <p>
+    @Html.ActionLink("Register as a new user", "Register")
+  </p>
+  <p>
+    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+  </p>
+}
+
+
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+}

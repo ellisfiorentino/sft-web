@@ -1,0 +1,9 @@
+﻿@model Comment
+<span style="color: gray; font-weight: 600">@Model.User</span><span> @Model.Created</span>
+<p>
+  @Model.Text
+</p>
+@if (Model.Modified > Model.Created)
+{
+  <span style="font-size: x-small;">Edited on: @Model.Modified</span>
+}

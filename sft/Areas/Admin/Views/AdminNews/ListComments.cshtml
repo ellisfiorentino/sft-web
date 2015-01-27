@@ -1,0 +1,59 @@
+﻿@model NewsArticle
+@{
+    ViewBag.Title = "Comments on: " + Model.Name;
+    ViewBag.PageTitle = "news";
+}
+
+
+<h1>@ViewBag.Title</h1>
+
+<table id="commentTalbe">
+    <thead>
+        <tr>
+            <th>Commenter</th>
+            <th>Text</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var comment in Model.Comments)
+        {
+            <tr>
+                <td>@comment.User</td>
+                <td>@comment.Text.Substring(0, (comment.Text.Length > 100 ? 100 : comment.Text.Length))@(comment.Text != null && comment.Text.Length > 100 ? " ..." : "")</td>
+                <td><span id="@comment.Id">@(comment.IsApproved ? "Approved" : "Removed")</span> <a href="#" onclick="toggleComment('@comment.Id');return false;">Chage status</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Commenter</th>
+            <th>Text</th>
+            <th>Status</th>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#commentTalbe").dataTable();
+        });
+
+        function toggleComment(id) {
+            $.ajax({
+                url: '@(Url.Action("ToggleComment", "AdminNews", null, Request.Url.Scheme))?id=' + id,
+                context: document.body
+            }).done(function (data) {
+                var currentStatus = $("#" + id).text();
+                if (currentStatus === "Approved") {
+                    $("#" + id).text("Removed");
+                } else {
+                    $("#" + id).text("Approved");
+                }
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<sft.Models.ViewModels.FeatureRentalViewModel>
+<!-- Sidebar -->
+<div id="sidebar">
+  <section class="widget thumbnails">
+    <h3>Rentals</h3>
+    <div class="grid">
+      @for (int i = 0; i < Model.Count(); i = i + 2)
+      {
+        <div class="row no-collapse 50%">
+          <div class="6u">
+            <a href="@Model.ElementAt(i).LinkLocation" class="image fit">
+              <img src="@Model.ElementAt(i).ImageLocation" alt=""/></a>
+          </div>
+          <div class="6u">
+            <a href="@Model.ElementAt(i + 1).LinkLocation" class="image fit">
+              <img src="@Model.ElementAt(i + 1).ImageLocation" alt=""/></a>
+          </div>
+        </div>
+      }
+    </div>
+    @Html.ActionLink("More", "Index", "Rental", null, new {@class = "button icon fa-file-text-o"})
+  </section>
+</div>

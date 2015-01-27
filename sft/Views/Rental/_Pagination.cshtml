@@ -1,0 +1,44 @@
+﻿@model RentalIndexViewModel
+
+
+<style type="text/css">
+    .pageContainer {
+        width: 100%;
+        text-align: center;
+    }
+
+    .button.active {
+        background: #12D1EA;
+    }
+
+    .button.disabled {
+        background: lightgray;
+    }
+</style>
+
+
+
+<div class="pageContainer">
+    @if (Model.Page == 1)
+    {
+        <span class="button icon fa-arrow-circle-left disabled"></span>
+    }
+    else
+    {
+        @Html.ActionLink(" ", "Index", "Rental", new { page = (Model.Page - 1) }, new { @class = "button icon fa-arrow-circle-left" })
+    }
+
+    @for (int i = 1; i <= Math.Ceiling((decimal)Model.Total/9); i++)
+    {
+        @Html.ActionLink(i.ToString(), "Index", "Rental", new { page = i}, new {@class = "button" + (i == Model.Page ? " active" : "")})
+    }
+
+    @if (Model.Page >= Math.Ceiling((decimal)Model.Total / 9))
+    {
+        <span class="button icon fa-arrow-circle-right disabled"></span>
+    }
+    else
+    {
+        @Html.ActionLink(" ", "Index", "Rental", new { page = Model.Page + 1 }, new { @class = "button icon fa-arrow-circle-right" })
+    }
+</div>
